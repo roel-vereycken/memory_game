@@ -1,0 +1,43 @@
+1) setup icons
+2) zorg ervoor dat je iconen via JS op het scherm kan plaatsen
+3) maak een array met al je iconen
+4) globale stateobject
+const state = {
+    allIcons: ["home","tire","pencil"],
+    level : 1,
+    username : ""
+} 
+
+5) fetch icons
+
+fetch(URL)
+.then(response => response.json())
+.then(data => {
+    state.allIcons =  data.icons.map(el=>el.properties.name)
+})
+
+6) zoek hoe je een kaart kan flippen met css
+
+    <div class="card flipped">
+        <div class="front">
+            
+        </div>
+        <div class="back">
+            <svg>
+        </div>
+    </div>
+
+Card => 
+GameLoop => 
+    1) mapping doen van alle icons
+    2) startSpel op basis van level
+    3) check/gewonnen/correct gedraaid?
+    4) initial html => .grid 
+1 => 2unieke => 4
+2 => 4unieke => 8
+3 => 8unieke => 16
+
+
+
+
+
