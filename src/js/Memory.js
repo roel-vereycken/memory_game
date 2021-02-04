@@ -52,11 +52,10 @@ class Memory {
   }
   startLevel() {
     const randomNm = getRandomInt(0, 450);
+    shuffle(this._allIcons);
     this._selected = this._allIcons.slice(randomNm, randomNm + this._lvl * 2);
-    console.log(this._selected);
     this._selected.map((el) => this._selectedColor.push([el, randomColor()]));
     this._doubled = [...this._selectedColor, ...this._selectedColor];
-    console.log(this._selectedColor);
     shuffle(this._doubled);
     this._doubled.map((el) => new Card("memory", el[0], el[1]));
     this._cardsInGame = this._doubled.length;
@@ -64,9 +63,9 @@ class Memory {
   }
   setUpEvents() {
     window.addEventListener("flipped", (e) => {
+      e.detail._htmlRef.style.pointerEvents = "none";
       this._checkIcons.push(e.detail._icon);
       this._checkObjects.push(e.detail);
-      console.log(e.detail);
       if (
         this._checkIcons.length == 2 &&
         this._checkIcons[0] == this._checkIcons[1]
@@ -74,7 +73,6 @@ class Memory {
         console.log("match");
         this._gameArr.push(this._checkIcons);
         this._checkIcons = [];
-        console.log(this._checkObjects);
         this._checkObjects.map((el) => (el._htmlRef.style.color = "grey"));
         this._checkObjects = [];
         this.endGame();
@@ -82,12 +80,17 @@ class Memory {
         this._checkIcons.length == 2 &&
         this._checkIcons[0] !== this._checkIcons[1]
       ) {
+        const allCards = document.querySelectorAll("div.flip-card");
+        allCards.forEach((el) => (el.style.pointerEvents = "none"));
         console.log("no match");
         setTimeout(() => {
           this._checkObjects[0]._htmlRef.classList.remove("turn");
           this._checkObjects[0]._isFlipped = false;
+          this._checkObjects[0]._htmlRef.style.pointerEvents = "";
           this._checkObjects[1]._htmlRef.classList.remove("turn");
           this._checkObjects[1]._isFlipped = false;
+          this._checkObjects[1]._htmlRef.style.pointerEvents = "";
+          allCards.forEach((el) => (el.style.pointerEvents = ""));
           this._checkIcons = [];
           this._checkObjects = [];
         }, 1200);

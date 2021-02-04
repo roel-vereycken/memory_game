@@ -13,7 +13,7 @@
     "clean": "rm -rf ./build/ ./.cache",
     "sass-prod": "sass ./src/css/style.scss build/css/style.css --no-source-map --style=compressed",
     "js-prod": "parcel build ./src/js/index.js --out-dir ./build/js --out-file bundle.js  --no-source-maps",
-    "deploy": "surge . --domain https://david-nieuwjaar.surge.sh"
+    "deploy": "surge . --domain https://roelvmemorygame.surge.sh"
   },
   "keywords": [],
   "author": "",
