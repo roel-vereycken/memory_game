@@ -11,7 +11,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  h2 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: Anton;
+  }
+
   //overflow: hidden;
+
+  #game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   #memory {
     width: 50%;

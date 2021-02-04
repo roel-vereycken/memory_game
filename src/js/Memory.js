@@ -9,11 +9,12 @@ function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
 }
 
-class Memory {
-  constructor(lvl = 1) {
+export default class Memory {
+  constructor(lvl = 1, username = "Memory Master") {
     this._allIcons = [];
     this._lvl = lvl;
     this._htmlRef = null;
+    this._title = null;
     this._selected = null;
     this._doubled = null;
     this._cardsInGame = null;
@@ -22,7 +23,7 @@ class Memory {
     this._checkObjects = [];
     this._gameArr = [];
     this.fetchIcons();
-    //this._username = username;
+    this._username = username;
   }
 
   fetchIcons() {
@@ -38,10 +39,17 @@ class Memory {
     document.body.insertAdjacentHTML(
       "afterbegin",
       `
+    <h2 id = "title"> Username: ${this._username} / lvl: ${this._lvl} </h2>
+    `
+    );
+    document.getElementById("game").insertAdjacentHTML(
+      "afterbegin",
+      `
       <div id = "memory">
       </div>
     `
     );
+    this._title = document.getElementById("title");
     this._htmlRef = document.getElementById("memory");
     if (this._lvl > 3) {
       this._htmlRef.style.width = "75%";
@@ -102,6 +110,7 @@ class Memory {
       console.log("proficiat");
       setTimeout(() => {
         this._htmlRef.remove();
+        this._title.remove();
       }, 2000);
       setTimeout(() => {
         this._lvl++;
@@ -113,11 +122,9 @@ class Memory {
         this._checkIcons = [];
         this._checkObjects = [];
         this._gameArr = [];
-        this.setUpEvents = null;
+        this.setUpEvents = undefined;
         this.init();
       }, 3000);
     }
   }
 }
-
-const memo = new Memory();
